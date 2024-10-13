@@ -26,14 +26,18 @@ const MainContents = (props: propsType) => {
     );
 
   return (
-    <>
-        <Stack sx={{p: 5}}>
+    <Stack>
+        <Stack sx={{p:{xs: 2, sm:5}}}>
             <Paper sx={{p: 3}}>
                 <>
-                    {isLoaded? <Typography variant='h5'>コード</Typography> : <Skeleton variant="text" sx={{width:"100px", height:"60px"}}/>}
-                    <Paper elevation={0} sx={{mt: 3, p: 3, backgroundColor: props.isDark? "#404040" : "#E0E0E0"}}>
-                        {isLoaded? <CodeBlocks/> : <Skeleton sx={{height: 100}}/>}
-                    </Paper>
+                    {isLoaded? <Typography sx={{fontSize: {xs: 18, sm: 20}}}>コード</Typography> : <Skeleton variant="text" sx={{width:"100px", height:"60px"}}/>}
+                    
+                    {isLoaded? 
+                        <Paper elevation={0} sx={{mt:{xs:2, sm:3}, p: {xs:2, sm:3}, backgroundColor: props.isDark? "#404040" : "#E0E0E0"}}>
+                            <CodeBlocks isDark={props.isDark}/>
+                        </Paper>
+                        : <Skeleton sx={{height: 100}}/>
+                    }
                 </>
             </Paper>
         </Stack>
@@ -44,7 +48,7 @@ const MainContents = (props: propsType) => {
             message="ログインしました"
             action={action}
         />
-    </>
+    </Stack>
   )
 }
 
