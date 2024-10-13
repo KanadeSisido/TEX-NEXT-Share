@@ -151,7 +151,11 @@ const CodeBlocks = (props: propsType) => {
     <Box>
             {
                 obj.map((trigger, index) => {
+                    
+                    //トリガーに何もブロックがない場合
+                    if(!trigger.length) return <Box key={index}></Box>;
 
+                    //トリガーにブロックがあるとき
                     return(
                         <Paper key={index} sx={{p:3, mb:2}}>
                             <Box sx={{mb:1}}>
@@ -162,7 +166,8 @@ const CodeBlocks = (props: propsType) => {
                                     
                                     {trigger.map(elem =>{
                                         const detail = TypeIndex[elem.component as CompType] || {};
-                                        
+
+                                        //トリガーにブロックがあるとき
                                         return(
                                             <CodeBlock key={elem.id} Heading={detail.Heading} AlterHeading={detail.AlternativeHeading} Icon={detail.Icon} value={detail.value[elem.value]} color={props.isDark? detail.Darkcolor : detail.color} isDark={props.isDark}/>
                                         )

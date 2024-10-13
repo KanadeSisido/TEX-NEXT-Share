@@ -24,7 +24,7 @@ const CodeBlock = (props: propsType) => {
                 </Box>
               </Box>
 
-              <Box sx={{display:'flex', border:"solid 1px #A0A0A0", borderRadius:"4px", px:1, py:0.5, maxWidth:{xs:100, sm:500}, minWidth:{xs:50, sm:100}, mt:{xs:1, sm:0}}}>
+              <Box sx={{display:'flex', border:"solid 1px #A0A0A0", borderRadius:"4px", px:1.5, py:0.5, maxWidth:{xs:100, sm:500}, minWidth:{xs:50, sm:100}, mt:{xs:1, sm:0}}}>
                   <Typography sx={{display:"flex", fontSize: {xs:13, sm:16}, alignItems:'center'}}>
                     右
                   </Typography>

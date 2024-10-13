@@ -1,4 +1,4 @@
-import { IconButton, Paper, Skeleton, Snackbar, Stack, Typography } from '@mui/material'
+import { Alert, Box, IconButton, Paper, Skeleton, Snackbar, Stack, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react'
 import CodeBlocks from './CodeBlocks';
@@ -26,9 +26,16 @@ const MainContents = (props: propsType) => {
     );
 
   return (
-    <Stack>
-        <Stack sx={{p:{xs: 2, sm:5}}}>
-            <Paper sx={{p: 3}}>
+    <>
+        <Box sx={{display:'flex', flexDirection:{xs:'column', md:'row'}, p:{xs: 2, md:5}}}>
+            
+            <Paper sx={{display:'flex', flexDirection:'column', p: 3, mb:3, mr:{xs:0, md:2}, height:'fit-content', flexGrow:0}}>
+                <Typography variant='h5'>TEXNITIS コードビューア</Typography>
+                <Typography variant='body1' sx={{fontSize: 13, mt:2}}>このたびは、TEXNITIS みやこ祭特別展示「ロボットプログラミングをやってみよう」にご参加いただき、ありがとうございました！<br/>このサイトでは、作成したコードを見返すことができます。</Typography>
+                <Alert severity='info' sx={{mt:2}}>コードは2024年11月30日まで見ることができます。<br/>12月1日以降は確認できませんのでご注意ください。</Alert>
+            </Paper>
+        
+            <Paper sx={{display:'flex', flexDirection:'column', p: 3, flexShrink:0, flexGrow:1}}>
                 <>
                     {isLoaded? <Typography sx={{fontSize: {xs: 18, sm: 20}}}>コード</Typography> : <Skeleton variant="text" sx={{width:"100px", height:"60px"}}/>}
                     
@@ -40,7 +47,7 @@ const MainContents = (props: propsType) => {
                     }
                 </>
             </Paper>
-        </Stack>
+        </Box>
         <Snackbar
             open={SnackOpen}
             autoHideDuration={5000}
@@ -48,7 +55,7 @@ const MainContents = (props: propsType) => {
             message="ログインしました"
             action={action}
         />
-    </Stack>
+    </>
   )
 }
 
