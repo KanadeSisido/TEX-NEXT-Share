@@ -14,10 +14,13 @@ const LoginForm = (props: propsType) => {
   const [Password, setPassword] = useState("");
   const [PasswordVisibliy, setPasswordVisiblity] = useState(false);
 
+  
+
   const TryLogin = () =>{
     
-    signInWithEmailAndPassword(auth, (UserID + "@example.com") , Password).then().catch(()=>{
-              
+    signInWithEmailAndPassword(auth, (UserID + "@example.com") , Password).then().catch((e)=>{
+      
+      console.log(e);
       setInvalidPass(true);
 
     })
@@ -28,7 +31,7 @@ const LoginForm = (props: propsType) => {
         <Paper elevation={2} sx={{flexGrow: 1, maxWidth: "500px", m: 5, p: 5}}>
 
             <Stack sx={{alignItems: "start"}}>
-                <img className='w-24' src={props.isDark? "/whitelogo.png" : "/logo.png"}/>
+                <img className='w-24' src={props.isDark? "/whitelogo.png" : "/logo.png"} alt='TEXNITIS logo'/>
                 <Typography variant='h4' sx={{mt: 3, fontSize:"30px"}}>ログイン</Typography>
                 <Typography variant='body1' sx={{mt: 1, fontSize:"13px", color: "#A0A0A0"}}>ACCESS IDとパスワードを入力してください</Typography>
                 <FormControl>

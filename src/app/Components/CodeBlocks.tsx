@@ -1,98 +1,74 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
+import SwapVertIcon from '@mui/icons-material/SwapVert';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+
 import CodeBlock from './CodeBlock/CodeBlock';
+import { codeSch } from './MainContents';
 
-const obj = [
-    [
-        {
-            "id": "8882c1c5-849f-4866-8a62-8a6e19ce797e",
-            "value": "0",
-            "component": "move"
-        }
-    ],
-    [
-        {
-            "id": "ed6b34c1-9922-45dd-9fe2-6a17f1e8ee33",
-            "value": "0",
-            "component": "rot"
-        }
-    ],
-    [
-        {
-            "id": "0897c0e9-549c-426d-8df3-8aa626ef903a",
-            "value": "0",
-            "component": "handud"
-        }
-    ],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
-];
 
-const TriggerIndex = [
-    {
-        Name: "ロボット起動時",
-        AlternativeName: "ロボットをきどうしたとき",
-      },
-      {
-        Name: "スティックを前に倒したとき",
-        AlternativeName: "スティックをまえにたおしたとき",
-      },
-      {
-        Name: "スティックを後ろに倒したとき",
-        AlternativeName: "スティックをうしろにたおしたとき",
-      },
-      {
-        Name: "スティックを右に倒したとき",
-        AlternativeName: "スティックをみぎにたおしたとき",
-      },
-      {
-        Name: "スティックを左に倒したとき",
-        AlternativeName: "スティックをひだりにたおしたとき",
-      },
-      {
-        Name: "◯ボタンを押したとき",
-        AlternativeName: "◯ボタンをおしたとき",
-      },
-      {
-        Name: "✕ボタンを押したとき",
-        AlternativeName: "✕ボタンをおしたとき",
-      },
-      {
-        Name: "△ボタンを押したとき",
-        AlternativeName: "△ボタンをおしたとき",
-      },
-      {
-        Name: "□ボタンを押したとき",
-        AlternativeName: "□ボタンをおしたとき",
-      },
-      {
-        Name: "L1ボタンを押したとき",
-        AlternativeName: "L1ボタンをおしたとき",
-      },
-      {
-        Name: "L2ボタンを押したとき",
-        AlternativeName: "L2ボタンをおしたとき",
-      },
-      {
-        Name: "R1ボタンを押したとき",
-        AlternativeName: "R1ボタンをおしたとき",
-      },
-      {
-        Name: "R2ボタンを押したとき",
-        AlternativeName: "R2ボタンをおしたとき",
-      },
-];
+const TriggerIndex = {
+  'onAwaken': {
+    Name: "ロボット起動時",
+    AlternativeName: "ロボットをきどうしたとき",
+  },
+  'onJoyStickFront': {
+    Name: "スティックを前に倒したとき",
+    AlternativeName: "スティックをまえにたおしたとき",
+  },
+  'onJoyStickBack': {
+    Name: "スティックを後ろに倒したとき",
+    AlternativeName: "スティックをうしろにたおしたとき",
+  },
+  'onJoyStickRight': {
+    Name: "スティックを右に倒したとき",
+    AlternativeName: "スティックをみぎにたおしたとき",
+  },
+  onJoyStickLeft: {
+    Name: "スティックを左に倒したとき",
+    AlternativeName: "スティックをひだりにたおしたとき",
+  },
+  onMaruButton: {
+    Name: "◯ボタンを押したとき",
+    AlternativeName: "◯ボタンをおしたとき",
+  },
+  onBatuButton: {
+    Name: "✕ボタンを押したとき",
+    AlternativeName: "✕ボタンをおしたとき",
+  },
+  onSankakuButton: {
+    Name: "△ボタンを押したとき",
+    AlternativeName: "△ボタンをおしたとき",
+  },
+  onShikakuButton: {
+    Name: "□ボタンを押したとき",
+    AlternativeName: "□ボタンをおしたとき",
+  },
+  onL1Button: {
+    Name: "L1ボタンを押したとき",
+    AlternativeName: "L1ボタンをおしたとき",
+  },
+  onL2Button:{
+    Name: "L2ボタンを押したとき",
+    AlternativeName: "L2ボタンをおしたとき",
+  },
+  onR1Button:{
+    Name: "R1ボタンを押したとき",
+    AlternativeName: "R1ボタンをおしたとき",
+  },
+  onR2Button:{
+    Name: "R2ボタンを押したとき",
+    AlternativeName: "R2ボタンをおしたとき",
+    },
+};
 
-type CompType = "move" | "rot" | "handud";
+const order: (keyof codeSch)[] = ['onAwaken','onJoyStickFront','onJoyStickBack','onJoyStickRight','onJoyStickLeft','onMaruButton','onBatuButton','onSankakuButton','onShikakuButton','onL1Button','onL2Button','onR1Button', 'onR2Button']
+
+type CompType = "move" | "rot" | "handud" | "handoc" | "r_led" | "g_led" | "b_led" | "wait";
 
 const TypeIndex: Record<CompType,{
     Heading : string;
@@ -109,10 +85,10 @@ const TypeIndex: Record<CompType,{
         Darkcolor : "#902525",
         Icon : <ControlCameraIcon/>,
         value : {
-            '0' : "前",
-            '1' : "後",
-            '2' : "右",
+            '1' : "前",
+            '2' : "後",
             '3' : "左",
+            '4' : "右",
         },
     },
 
@@ -121,67 +97,131 @@ const TypeIndex: Record<CompType,{
         AlternativeHeading : "ロボットをまわす",
         color : "#FFE0E0",
         Darkcolor : "#902525",
-        Icon : <ControlCameraIcon/>,
+        Icon : <ThreeSixtyIcon/>,
         value : {
-            '0' : "時計回り",
-            '1' : "反時計回り",
+            '1' : "時計回り",
+            '2' : "反時計回り",
         },
     },
 
     handud:{
-        Heading : "ロボットを回転させる",
-        AlternativeHeading : "ロボットをまわす",
-        color : "#E0FFE0",
-        Darkcolor: "#309030",
-        Icon : <ControlCameraIcon/>,
-        value : {
-            '0' : "上げる",
-            '1' : "下げる",
-        },
+      Heading : "ハンドを上げる・下げる",
+      AlternativeHeading : "ロボットをあげる・さげる",
+      color : "#E0FFE0",
+      Darkcolor: "#309030",
+      Icon : <SwapVertIcon/>,
+      value : {
+          '1' : "上げる",
+          '2' : "下げる",
+      },
+    },
+
+    handoc:{
+      Heading : "ハンドを開く・閉じる",
+      AlternativeHeading : "ハンドをひらく・とじる",
+      color : "#E0FFE0",
+      Darkcolor: "#309030",
+      Icon : <SyncAltIcon/>,
+      value : {
+          '1' : "開く",
+          '2' : "閉じる",
+      },
+    },
+    
+    r_led:{
+      Heading : "赤色のLEDを光らせる・消す",
+      AlternativeHeading : "あかいろのLEDをひからせる・けす",
+      color : "#FFFFFF",
+      Darkcolor: "#101010",
+      Icon : <LightModeIcon sx={{color:"#F06060"}}/>,
+      value : {
+          '1' : "光らせる",
+          '2' : "消す",
+      },
+    },
+
+    g_led:{
+      Heading : "緑色のLEDを光らせる・消す",
+      AlternativeHeading : "みどりいろのLEDをひからせる・けす",
+      color : "#FFFFFF",
+      Darkcolor: "#303030",
+      Icon : <LightModeIcon sx={{color:"#60F060"}}/>,
+      value : {
+          '1' : "光らせる",
+          '2' : "消す",
+      },
+    },
+
+    b_led:{
+      Heading : "青色のLEDを光らせる・消す",
+      AlternativeHeading : "あおいろのLEDをひからせる・けす",
+      color : "#FFFFFF",
+      Darkcolor: "#303030",
+      Icon : <LightModeIcon sx={{color:"#6060F0"}}/>,
+      value : {
+          '1' : "光らせる",
+          '2' : "消す",
+      },
+    },
+
+    wait:{
+      Heading : "待機する",
+      AlternativeHeading : "じかんをまつ",
+      color : "#E0E0FF",
+      Darkcolor: "#303090",
+      Icon : <AccessAlarmIcon/>,
+      value : {
+          '0' : "",
+      },
     },
     
 }
 
 type propsType = {
   isDark : boolean,
+  code : codeSch,
 }
 
 const CodeBlocks = (props: propsType) => {
   return (
-    <Box>
+    <Stack>
             {
-                obj.map((trigger, index) => {
-                    
-                    //トリガーに何もブロックがない場合
-                    if(!trigger.length) return <Box key={index}></Box>;
+                order.map((triggerName, index) => {
 
-                    //トリガーにブロックがあるとき
-                    return(
-                        <Paper key={index} sx={{p:3, mb:2}}>
-                            <Box sx={{mb:1}}>
-                                <Typography sx={{fontSize:{xs:14, sm: 16}}}>{TriggerIndex[index].Name}</Typography>
-                                <Typography sx={{fontSize:10, color:"#A0A0A0"}}>{TriggerIndex[index].AlternativeName}</Typography>    
-                            </Box>
-                                <Paper elevation={0} sx={{p:1, backgroundColor: props.isDark? "#404040" : "#E0E0E0"}}>
-                                    
-                                    {trigger.map(elem =>{
-                                        const detail = TypeIndex[elem.component as CompType] || {};
+                  const blockArray = props.code![triggerName];
+                  
+                  //トリガーに何もブロックがない場合
+                  if(!blockArray.length) return <Box key={index}></Box>;
+                  //トリガーにブロックがあるとき
+                  return(
+                    <Paper key={index} sx={{p:3, mb:1}}>
+                        <Box sx={{mb:1}}>
+                            <Typography sx={{fontSize:{xs:14, sm: 16}}}>{TriggerIndex[triggerName].Name}</Typography>
+                            <Typography sx={{fontSize:10, color:"#A0A0A0"}}>{TriggerIndex[triggerName].AlternativeName}</Typography>    
+                        </Box>
+                            <Paper elevation={0} sx={{p:1, backgroundColor: props.isDark? "#404040" : "#E0E0E0"}}>
+                                <Stack gap={1}>
 
-                                        //トリガーにブロックがあるとき
-                                        return(
-                                            <CodeBlock key={elem.id} Heading={detail.Heading} AlterHeading={detail.AlternativeHeading} Icon={detail.Icon} value={detail.value[elem.value]} color={props.isDark? detail.Darkcolor : detail.color} isDark={props.isDark}/>
-                                        )
-                                    })}
+                                  {blockArray.map((elem, Bindex) =>{
+                                      const detail = TypeIndex[elem.component as CompType];
+                                      const value = elem.component == "wait"? elem.value + "秒" : detail.value[elem.value];
+                                      
+                                      //トリガーにブロックがあるとき
+                                      return(
+                                          <CodeBlock key={index + "-" + Bindex} Heading={detail.Heading} AlterHeading={detail.AlternativeHeading} Icon={detail.Icon} value={value} color={props.isDark? detail.Darkcolor : detail.color} isDark={props.isDark}/>
+                                      )
+                                  })}
                                 
-                                </Paper>
-                        </Paper>
+                                </Stack>
+                            </Paper>
+                    </Paper>
                     
-                    )
-                
-                })
-                
+                  )
+            
+            })
+              
             }
-    </Box>
+    </Stack>
   )
 }
 

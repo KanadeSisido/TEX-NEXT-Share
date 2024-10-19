@@ -11,8 +11,8 @@ import MainContents from "./Components/MainContents";
 export default function Home() {
 
   // Firebase Auth
-  //const [authState] = useAuthState(auth);
-  const authState = true;
+  const [authState] = useAuthState(auth);
+
   //Light - Dark Mode
   const [Dark, setDark] = useState(false);
 
@@ -36,14 +36,13 @@ export default function Home() {
     setDark(!Dark);
   }
   
-
   return (
     <div>
       <ThemeProvider theme={Theme}>
         <CssBaseline/>
         <Topbar ToggleDark={SwitchDisplayMode} isDark={Dark}/>
         {
-          authState? <MainContents isDark={Dark}/> : <LoginForm isDark={Dark}/>
+          authState? <MainContents isDark={Dark} AuthState={authState}/> : <LoginForm isDark={Dark}/>
         }
       </ThemeProvider>
     </div>
