@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import LoginForm from "./Components/LoginForm";
 import MainContents from "./Components/MainContents";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -44,6 +45,18 @@ export default function Home() {
         {
           authState? <MainContents isDark={Dark} AuthState={authState}/> : <LoginForm isDark={Dark}/>
         }
+        <footer>
+          {authState?
+          <div className="ml-3 mb-4">
+            <Link href={"https://texnitis.miyakofes.yzuemx.com/OPENSOURCE_LICENSE.html"} className="text-gray-500 text-sm">
+              オープンソースライセンス
+            </Link>
+          </div>:
+          <Link href={"https://texnitis.miyakofes.yzuemx.com/OPENSOURCE_LICENSE.html"} className="text-gray-500 text-sm fixed bottom-3 left-3">
+            オープンソースライセンス
+          </Link>
+          }
+        </footer>
       </ThemeProvider>
     </div>
   );

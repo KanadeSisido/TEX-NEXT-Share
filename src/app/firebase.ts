@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STR_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MES_SENDER_ID,
-  appId: process.env.RNEXT_PUBLIC_FIREBASE_APPID
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID
 };
 
 const app = initializeApp(firebaseConfig);
